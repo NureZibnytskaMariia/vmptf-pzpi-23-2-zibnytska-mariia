@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f6f9; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #343a40; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="{% url 'all_rates' %}">All records</a> | 
+        <a href="{% url 'today_rates' %}">Today's rat</a> | 
+        <a href="{% url 'api_today_rates' %}" target="_blank">API (JSON)</a> |
+        <a href="/admin/" target="_blank">Admin Panel</a>
+    </nav>
+
+    <h1>{{ title }}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Currency Name</th>
+                <th>Buy Rate (UAH)</th>
+                <th>Sell Rate (UAH)</th>
+                <th>Fixation Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rate in rates %}
+            <tr>
+                <td><strong>{{ rate.currency_name }}</strong></td>
+                <td>{{ rate.buy_rate }}</td>
+                <td>{{ rate.sell_rate }}</td>
+                <td>{{ rate.date_added }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">There is no data on exchange rates. Add them through the admin panel.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
