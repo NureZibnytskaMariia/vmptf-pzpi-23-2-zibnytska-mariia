@@ -1,7 +1,8 @@
 #Рівень 1:  
 #4. Напишіть функцію, яка приймає три параметри (a, b, c) і виводить на екран найменше з них.
-def find_minimum(a, b, c):
-    return min(a, b, c)
+def find_minimum(arr):
+    return min(arr)
+
 
 #Рівень 2:  
 #4. Напишіть функцію, яка приймає рядок та повертає його обернений варіант. Наприклад, "hello" повинно повернути "olleh".
@@ -70,10 +71,9 @@ def main():
 
         if choice == "1":
             try:
-                a = float(input("Enter a: "))
-                b = float(input("Enter b: "))
-                c = float(input("Enter c: "))
-                print(f"Result (minimum): {find_minimum(a, b, c)}")
+                a = [1, 2, 4, 7]
+                
+                print(f"Result (minimum): {find_minimum(a)}")
             except ValueError:
                 print("Error: Please enter valid numbers.")
 

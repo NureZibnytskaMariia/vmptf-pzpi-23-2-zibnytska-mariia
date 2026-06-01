@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Level 1 - Task 5</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        img {
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Random Image (Fetch + JSON)</h1>
+    <div id="image-container">Loading...</div>
+
+    <script>
+        const url = 'https://randomfox.ca/floof/';
+
+        fetch(url)
+            .then(response => response.text())
+            .then(jsonString => {
+                const data = JSON.parse(jsonString);
+
+                const imageUrl = data.image;
+
+                const imgElement = document.createElement('img');
+                imgElement.src = imageUrl;
+                imgElement.alt = 'Random fox';
+
+                const container = document.getElementById('image-container');
+                container.innerHTML = '';
+                container.appendChild(imgElement);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('image-container').innerText = 'Failed to load image.';
+            });
+    </script>
+</body>
+
+</html>
