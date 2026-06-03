@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "wizard_student",
+      "password": "$2a$10$A9x7U1pG8W7uIEXXzbeKeO6Z37FvNl6yVb5V7nUoD5TzK1RGe9z2G", 
+      "enrolledCourses": [1],
+      "customPrograms": {
+        "1": ["Master Python Basics", "Understand Bayes Theorem", "Pass Final Test"]
+      }
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "title": "Data Science & Spellcasting Analytics",
+      "description": "Прогнозування результатів квідичу та аналіз великих даних за допомогою Python та SQL.",
+      "category": "Data Science",
+      "duration": "12 тижнів",
+      "rating": 4.8,
+      "reviews": [
+        {"user": "HermioneG", "text": "Блискучий курс! Математична статистика розписана ідеально.", "rating": 5}
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Advanced English for International Magic Relations",
+      "description": "Академічна англійська (B2/C1) для написання наукових тез та ведення міжнародних переговорів.",
+      "category": "English",
+      "duration": "8 тижнів",
+      "rating": 4.5,
+      "reviews": []
+    },
+    {
+      "id": 3,
+      "title": "Теорія ймовірностей та Магічна Статистика",
+      "description": "Фундаментальний курс з комбінаторики, випадкових величин та розподілів для Data Science.",
+      "category": "Math",
+      "duration": "10 тижнів",
+      "rating": 4.9,
+      "reviews": []
+    }
+  ]
+}
