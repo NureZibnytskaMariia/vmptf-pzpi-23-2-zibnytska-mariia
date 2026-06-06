@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvDetailTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назва курсу"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvDetailDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Детальний опис курсу..."
+            app:layout_constraintTop_toBottomOf="@id/tvDetailTitle"/>
+
+        <TextView
+            android:id="@+id/tvDetailStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Статус: В процесі"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailDesc"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/btnEnroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Записатись на курс"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/tvSyllabusTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Програма навчання:"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/btnEnroll"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvSyllabus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• Модуль 1..."
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvSyllabusTitle"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/tvSyllabus"/>
+
+        <TextView
+            android:id="@+id/tvLeaveReviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Залишити відгук"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <RatingBar
+            android:id="@+id/rbNewReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            style="?android:attr/ratingBarStyle"
+            app:layout_constraintTop_toBottomOf="@id/tvLeaveReviewTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/etReviewComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ваш коментар..."
+            app:layout_constraintTop_toBottomOf="@id/rbNewReview"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnSubmitReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Надіслати відгук"
+            app:layout_constraintTop_toBottomOf="@id/etReviewComment"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
