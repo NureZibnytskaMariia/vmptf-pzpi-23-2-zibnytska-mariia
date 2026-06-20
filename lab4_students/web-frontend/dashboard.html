@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Університетський Дашборд Керування</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Навігаційна панель -->
+    <div class="sidebar">
+        <h2>NURE Університет</h2>
+        <button class="nav-btn active" onclick="switchSection('students')">🎓 Студенти</button>
+        <button class="nav-btn" onclick="switchSection('teachers')">👨‍🏫 Викладачі</button>
+        <button class="nav-btn" onclick="switchSection('courses')">📚 Курси</button>
+        <button class="nav-btn" onclick="switchSection('grades')">💯 Оцінки</button>
+        <button class="nav-btn" onclick="switchSection('actions')">⚡ Швидкі Дії (Рівень 4)</button>
+    </div>
+
+    <!-- Основний контент -->
+    <div class="main-content">
+        <header>
+            <h1 id="page-title">Керування Студентами</h1>
+            <div class="api-status">API: Connected (127.0.0.1:8000)</div>
+        </header>
+
+        <div id="notification-bar" class="notification"></div>
+
+        <!-- СЕКЦІЯ СТУДЕНТІВ -->
+        <div id="students-section" class="section active">
+            <div class="grid-container">
+                <div class="panel">
+                    <h3 id="student-form-title">Додати студента</h3>
+                    <form id="student-form" onsubmit="handleStudentSubmit(event)">
+                        <input type="hidden" id="student-id">
+                        <div class="form-group">
+                            <label>Ім'я</label>
+                            <input type="text" id="student-first-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Прізвище</label>
+                            <input type="text" id="student-last-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="student-email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Академічна Група</label>
+                            <input type="text" id="student-group" class="form-control" placeholder="напр. ПЗПІ-23-2" required>
+                        </div>
+                        <button type="submit" class="btn">Зберегти</button>
+                        <button type="button" id="cancel-student-edit" class="btn btn-secondary" style="display:none;" onclick="resetStudentForm()">Скасувати</button>
+                    </form>
+                </div>
+                <div class="panel">
+                    <h3>Список студентів</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Ім'я та Прізвище</th>
+                                    <th>Email</th>
+                                    <th>Група</th>
+                                    <th>Дії</th>
+                                </tr>
+                            </thead>
+                            <tbody id="students-table-body">
+                                <!-- Дані завантажуються динамічно -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЕКЦІЯ ВИКЛАДАЧІВ -->
+        <div id="teachers-section" class="section">
+            <div class="grid-container">
+                <div class="panel">
+                    <h3>Додати викладача</h3>
+                    <form id="teacher-form" onsubmit="handleTeacherSubmit(event)">
+                        <div class="form-group">
+                            <label>Ім'я</label>
+                            <input type="text" id="teacher-first-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Прізвище</label>
+                            <input type="text" id="teacher-last-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Кафедра</label>
+                            <input type="text" id="teacher-dep" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn">Зберегти</button>
+                    </form>
+                </div>
+                <div class="panel">
+                    <h3>Список викладачів</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Викладач</th>
+                                    <th>Кафедра</th>
+                                    <th>Дії</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teachers-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЕКЦІЯ КУРСІВ -->
+        <div id="courses-section" class="section">
+            <div class="grid-container">
+                <div class="panel">
+                    <h3>Створити курс</h3>
+                    <form id="course-form" onsubmit="handleCourseSubmit(event)">
+                        <div class="form-group">
+                            <label>Назва курсу</label>
+                            <input type="text" id="course-title-input" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Опис</label>
+                            <textarea id="course-desc" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>ID Викладача</label>
+                            <input type="number" id="course-teacher-id" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn">Зберегти</button>
+                    </form>
+                </div>
+                <div class="panel">
+                    <h3>Доступні курси (з Redis кешуванням)</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Назва</th>
+                                    <th>Опис</th>
+                                    <th>ID Викладача</th>
+                                    <th>Дії</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courses-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЕКЦІЯ ОЦІНОК -->
+        <div id="grades-section" class="section">
+            <div class="grid-container">
+                <div class="panel">
+                    <h3>Виставити оцінку</h3>
+                    <form id="grade-form" onsubmit="handleGradeSubmit(event)">
+                        <div class="form-group">
+                            <label>ID Студента</label>
+                            <input type="number" id="grade-student-id" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ID Курсу</label>
+                            <input type="number" id="grade-course-id" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Бали (0-100)</label>
+                            <input type="number" id="grade-score" class="form-control" min="0" max="150" required>
+                        </div>
+                        <button type="submit" class="btn">Поставити оцінку</button>
+                    </form>
+                </div>
+                <div class="panel">
+                    <h3>Журнал оцінок</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ID Студента</th>
+                                    <th>ID Курсу</th>
+                                    <th>Бали</th>
+                                    <th>Дата</th>
+                                    <th>Дії</th>
+                                </tr>
+                            </thead>
+                            <tbody id="grades-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЕКЦІЯ ШВИДКИХ ДІЙ (РІВЕНЬ 4) -->
+        <div id="actions-section" class="section">
+            <div class="grid-container">
+                <div class="panel">
+                    <h3>Атомарна транзакція: Випуск та Архівування</h3>
+                    <p style="font-size: 14px; margin-bottom: 15px; color:#666;">
+                        Ця дія запускає транзакційний ендпоінт. Вона одночасно виставляє фінальну оцінку та автоматично змінює статус групи студента на "GRADUATED". Якщо оцінка перевищить 100 балів, вся операція буде скасована.
+                    </p>
+                    <form id="graduate-form" onsubmit="handleGraduateSubmit(event)">
+                        <div class="form-group">
+                            <label>ID Студента</label>
+                            <input type="number" id="grad-student-id" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ID Курсу</label>
+                            <input type="number" id="grad-course-id" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Фінальний бал (Введіть >100 для тесту скасування)</label>
+                            <input type="number" id="grad-score" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn" style="background-color: #4E220F;">Запустити транзакцію</button>
+                    </form>
+                </div>
+                <div class="panel">
+                    <h3>Лог транзакційних операцій додатка</h3>
+                    <div id="transaction-log" style="background: #ffffff; padding: 15px; border-radius: 4px; font-family: monospace; height: 300px; overflow-y: auto; border: 1px solid #B0BA99;">
+                        [системний лог активовано]...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
